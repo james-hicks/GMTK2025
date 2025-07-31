@@ -29,12 +29,30 @@ public class PlayerController : MonoBehaviour
 
         // Handle boomerang throwing
         cooldownTimer -= Time.deltaTime;
+
         if (Input.GetMouseButtonDown(0) && cooldownTimer <= 0f)
         {
-            var boomerang = Instantiate(boomerangPrefab, throwPoint.position, throwPoint.rotation);
-            boomerang.GetComponent<BoomerangSimpleArc>().player = this.transform;
-            boomerang.GetComponent<BoomerangSimpleArc>().playerController = this; // link back for cooldown handling
-            cooldownTimer = boomerangCooldown; // Start cooldown
+            // Find mouse world position
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero); // Ground at y=0
+
+            if (groundPlane.Raycast(ray, out float distance))
+            {
+                Vector3 mouseWorldPos = ray.GetPoint(distance);
+
+                // Calculate throw distance from player to mouse point
+                float throwDistance = Vector3.Distance(transform.position, mouseWorldPos);
+                throwDistance = Mathf.Clamp(throwDistance, 5, 20);
+
+                // Spawn boomerang
+                var boomerang = Instantiate(boomerangPrefab, throwPoint.position, throwPoint.rotation);
+                var boomerangScript = boomerang.GetComponent<BoomerangSimpleArc>();
+                boomerangScript.player = this.transform;
+                boomerangScript.playerController = this;
+                boomerangScript.forwardDistance = throwDistance; // Set distance dynamically
+
+                cooldownTimer = boomerangCooldown;
+            }
         }
     }
 
@@ -92,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
     public void ResetThrowCooldown()
     {
-        cooldownTimer = boomerangCooldown; // Normal cooldown if caught
+        cooldownTimer = 0.1f; // Normal cooldown if caught
     }
 
     public void ExtendThrowCooldown(float penaltyMultiplier)

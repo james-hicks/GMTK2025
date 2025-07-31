@@ -15,6 +15,7 @@ public class BoomerangSimpleArc : MonoBehaviour
     public float catchDistance = 2.5f;
     public float offscreenDestroyDistance = 50f;
     public float flyPastSpeed = 10f;
+    public float catchGraceTime = 0.3f; // Extra time after passing player to still catch
 
     private Vector3 startPos;
     private Vector3 forwardDir;
@@ -27,8 +28,8 @@ public class BoomerangSimpleArc : MonoBehaviour
     private float timer;
     private float side;
 
-    // For missed trajectory
     private Vector3 lastDirection;
+    private float graceTimer;
 
     void Start()
     {
@@ -44,6 +45,7 @@ public class BoomerangSimpleArc : MonoBehaviour
         returning = false;
         caught = false;
         missed = false;
+        graceTimer = 0f;
     }
 
     void Update()
@@ -72,36 +74,49 @@ public class BoomerangSimpleArc : MonoBehaviour
 
             Vector3 newPos = QuadraticBezier(apexPos, returnControl, player.position, t);
 
-            // Calculate tangent direction (last movement vector)
             lastDirection = (newPos - transform.position).normalized;
-
             transform.position = newPos;
 
-            // Catch input check
+            // Catch check
             if (Vector3.Distance(transform.position, player.position) <= catchDistance && Input.GetKeyDown(KeyCode.E))
             {
                 CatchBoomerang();
                 return;
             }
 
-            // If return completes and not caught, fly through the player
-            if (t >= 1f && !caught)
+            // When return arc completes, start grace period
+            if (t >= 1f)
             {
-                missed = true;
-                Debug.Log("Missed");
-
-                if (playerController != null) playerController.ExtendThrowCooldown(1.5f);
+                graceTimer = catchGraceTime;
+                missed = true; // Transition to fly-past mode, but still catchable briefly
             }
         }
-        else if (missed)
+        else if (missed && !caught)
         {
-            // Continue flying straight along the last trajectory
+            // Fly past while grace timer is active
             transform.position += lastDirection * flyPastSpeed * Time.deltaTime;
 
-            // Destroy if far away
-            if (Vector3.Distance(transform.position, player.position) > offscreenDestroyDistance)
+            if (graceTimer > 0f)
             {
-                Destroy(gameObject);
+                graceTimer -= Time.deltaTime;
+
+                // Still catchable during grace time
+                if (Vector3.Distance(transform.position, player.position) <= catchDistance && Input.GetKeyDown(KeyCode.E))
+                {
+                    CatchBoomerang();
+                    return;
+                }
+            }
+            else
+            {
+                // Once grace time expires, it's fully missed
+                if (playerController != null) playerController.ExtendThrowCooldown(1.5f);
+
+                // Destroy if far away
+                if (Vector3.Distance(transform.position, player.position) > offscreenDestroyDistance)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }
