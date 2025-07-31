@@ -13,7 +13,7 @@ public class BoomerangSimpleArc : MonoBehaviour
     public float arcWidth = 2f;
     public float spinSpeed = 1080f;
     public float catchDistance = 2.5f;
-    public float offscreenDestroyDistance = 20f;
+    public float offscreenDestroyDistance = 50f;
     public float flyPastSpeed = 10f;
 
     private Vector3 startPos;
@@ -81,22 +81,24 @@ public class BoomerangSimpleArc : MonoBehaviour
             if (Vector3.Distance(transform.position, player.position) <= catchDistance && Input.GetKeyDown(KeyCode.E))
             {
                 CatchBoomerang();
+                return;
             }
 
-            // Mark missed if return completes without catch
+            // If return completes and not caught, fly through the player
             if (t >= 1f && !caught)
             {
                 missed = true;
-                Debug.Log("Missed Boomerang!");
+                Debug.Log("Missed");
+
                 if (playerController != null) playerController.ExtendThrowCooldown(1.5f);
             }
         }
         else if (missed)
         {
-            // Fly outward along last tangent path
+            // Continue flying straight along the last trajectory
             transform.position += lastDirection * flyPastSpeed * Time.deltaTime;
 
-            // Destroy if offscreen/far away
+            // Destroy if far away
             if (Vector3.Distance(transform.position, player.position) > offscreenDestroyDistance)
             {
                 Destroy(gameObject);
