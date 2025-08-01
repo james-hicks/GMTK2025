@@ -14,10 +14,12 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     private Camera cam;
+    private Animator animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         cam = Camera.main;
         cooldownTimer = 0f;
     }
@@ -44,6 +46,9 @@ public class PlayerController : MonoBehaviour
                 float throwDistance = Vector3.Distance(transform.position, mouseWorldPos);
                 throwDistance = Mathf.Clamp(throwDistance, 5, 20);
 
+                // Animation trigger throw
+                animator.SetTrigger("Throw");
+
                 // Spawn boomerang
                 var boomerang = Instantiate(boomerangPrefab, throwPoint.position, throwPoint.rotation);
                 var boomerangScript = boomerang.GetComponent<BoomerangSimpleArc>();
@@ -52,6 +57,7 @@ public class PlayerController : MonoBehaviour
                 boomerangScript.forwardDistance = throwDistance; // Set distance dynamically
 
                 cooldownTimer = boomerangCooldown;
+
             }
         }
     }
@@ -66,6 +72,9 @@ public class PlayerController : MonoBehaviour
 
         // Calculate velocity
         Vector3 velocity = input * moveSpeed;
+
+        // Animation toggle move bool
+        animator.SetBool("Move", input != Vector3.zero);
 
         // Apply directly to Rigidbody (no MovePosition)
         rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
