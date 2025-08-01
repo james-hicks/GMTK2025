@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IHitable
 {
-    public void GetHit();
+    public void GetHit(int damage);
 }

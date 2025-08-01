@@ -58,8 +58,11 @@ public class PlayerController : MonoBehaviour
 
                 cooldownTimer = boomerangCooldown;
 
+
             }
         }
+
+        UIManager.instance.UpdateCooldownGraphic(cooldownTimer);
     }
 
     void FixedUpdate()
@@ -107,23 +110,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void ThrowBoomerang()
-    {
-        if (boomerangPrefab != null && throwPoint != null)
-        {
-            GameObject Boom = Instantiate(boomerangPrefab, throwPoint.position, throwPoint.rotation);
-            Boom.GetComponent<BoomerangSimpleArc>().player = throwPoint;
-            Boom.GetComponent<BoomerangSimpleArc>().playerController = this;
-        }
-    }
-
     public void ResetThrowCooldown()
     {
         cooldownTimer = 0.1f; // Normal cooldown if caught
-    }
-
-    public void ExtendThrowCooldown(float penaltyMultiplier)
-    {
-        cooldownTimer = boomerangCooldown * penaltyMultiplier; // Longer if missed
+        UIManager.instance.UpdateCooldownGraphic(cooldownTimer);
     }
 }

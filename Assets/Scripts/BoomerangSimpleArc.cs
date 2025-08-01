@@ -5,6 +5,7 @@ public class BoomerangSimpleArc : MonoBehaviour
     [Header("References")]
     public Transform player;
     public PlayerController playerController;
+    [SerializeField] public GameObject HitFX;
 
     [Header("Flight Settings")]
     public float forwardDistance = 10f;
@@ -109,8 +110,6 @@ public class BoomerangSimpleArc : MonoBehaviour
             }
             else
             {
-                // Once grace time expires, it's fully missed
-                if (playerController != null) playerController.ExtendThrowCooldown(1.5f);
 
                 // Destroy if far away
                 if (Vector3.Distance(transform.position, player.position) > offscreenDestroyDistance)
@@ -134,5 +133,16 @@ public class BoomerangSimpleArc : MonoBehaviour
         return Mathf.Pow(1 - t, 2) * start +
                2 * (1 - t) * t * control +
                Mathf.Pow(t, 2) * end;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.TryGetComponent(out IHitable hit))
+        {
+            hit.GetHit(1);
+
+            GameObject fx = Instantiate(HitFX, other.transform.position, Quaternion.identity);
+            Destroy(fx, 2f);
+        }
     }
 }
