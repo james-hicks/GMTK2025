@@ -727,6 +727,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Kangaroo
       objectReference: {fileID: 0}
+    - target: {fileID: 7737325142429782911, guid: 23f79f9a64eaa28418c34075ebdcc8ee, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
