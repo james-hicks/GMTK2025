@@ -268,7 +268,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 10.69, z: -4.92}
+  m_LocalPosition: {x: 0, y: 8.34, z: -2.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -333,7 +333,7 @@ PositionConstraint:
   m_AffectTranslationX: 1
   m_AffectTranslationY: 1
   m_AffectTranslationZ: 1
-  m_Active: 0
+  m_Active: 1
   m_IsLocked: 1
   m_Sources:
   - sourceTransform: {fileID: 6418545494031805654}
@@ -1418,7 +1418,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1735450005255059701, guid: 535ac517213b6ea4b881d075f4032a98, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.965
+      value: -19.285
       objectReference: {fileID: 0}
     - target: {fileID: 1735450005255059701, guid: 535ac517213b6ea4b881d075f4032a98, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1426,7 +1426,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1735450005255059701, guid: 535ac517213b6ea4b881d075f4032a98, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 1735450005255059701, guid: 535ac517213b6ea4b881d075f4032a98, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2290,9 +2290,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Lizard_ThornBack
       objectReference: {fileID: 0}
+    - target: {fileID: 7645989351850367866, guid: 897b4463963219b4e8db6820aba07999, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8791783437997517476, guid: 897b4463963219b4e8db6820aba07999, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: -17.25
       objectReference: {fileID: 0}
     - target: {fileID: 8791783437997517476, guid: 897b4463963219b4e8db6820aba07999, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2300,7 +2304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8791783437997517476, guid: 897b4463963219b4e8db6820aba07999, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 8791783437997517476, guid: 897b4463963219b4e8db6820aba07999, type: 3}
       propertyPath: m_LocalRotation.w
