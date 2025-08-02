@@ -538,10 +538,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Lizard_Burrower
       objectReference: {fileID: 0}
-    - target: {fileID: 3444853489105042441, guid: 3db19d73f2885dd4ba612d531c0d53b6, type: 3}
-      propertyPath: viewRange
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 8416075108465238348, guid: 3db19d73f2885dd4ba612d531c0d53b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.56
@@ -864,13 +860,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5036438234700631686, guid: 535ac517213b6ea4b881d075f4032a98, type: 3}
+      propertyPath: startDelay.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559656786173602831, guid: 535ac517213b6ea4b881d075f4032a98, type: 3}
+      propertyPath: startDelay.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 9134918428682711678, guid: 535ac517213b6ea4b881d075f4032a98, type: 3}
       propertyPath: m_Name
       value: Enemy_Lizard_FrillNecked
-      objectReference: {fileID: 0}
-    - target: {fileID: 9134918428682711678, guid: 535ac517213b6ea4b881d075f4032a98, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
