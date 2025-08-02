@@ -42,9 +42,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8791783437997517476}
-  - component: {fileID: 3927496872161764921}
   - component: {fileID: 6829252988203643934}
-  - component: {fileID: 6320240669522242694}
+  - component: {fileID: 1322382571933317431}
+  - component: {fileID: 2461893122120861818}
   m_Layer: 0
   m_Name: Enemy_Lizard_ThornBack
   m_TagString: Untagged
@@ -68,18 +68,6 @@ Transform:
   - {fileID: 3995669704985912622}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3927496872161764921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7645989351850367866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 413efe4d31459ca4eac881539840dfd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &6829252988203643934
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -87,7 +75,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7645989351850367866}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9892b1965593ac049b22f18292858141, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -103,33 +91,75 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!54 &6320240669522242694
-Rigidbody:
+--- !u!114 &1322382571933317431
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7645989351850367866}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298ec0090cc6ea9499e66d86db70eea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 2
+  viewRange: 40
+  attackRange: 15
+  CurrentStateName: 
+--- !u!195 &2461893122120861818
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7645989351850367866}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 4
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 9999
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!1 &8663317473842945638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7906833693947202703}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7906833693947202703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8663317473842945638}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.8353403, y: -0.0048807636, z: 0.0074178707, w: -0.54966146}
+  m_LocalPosition: {x: 0.009, y: 0.46, z: -0.112}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7954386827527315966}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3173045886249232917
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1442,7 +1472,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b0617869da0483848b80fa63e442a5ff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 186454152227697318}
+    - targetCorrespondingSourceObject: {fileID: -2406494791764597957, guid: b0617869da0483848b80fa63e442a5ff, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7906833693947202703}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b0617869da0483848b80fa63e442a5ff, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8669111740472119804}
     - targetCorrespondingSourceObject: {fileID: 101489698780253121, guid: b0617869da0483848b80fa63e442a5ff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8116334032807363787}
@@ -1530,6 +1566,30 @@ Transform:
 --- !u!4 &3995669704985912622 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b0617869da0483848b80fa63e442a5ff, type: 3}
+  m_PrefabInstance: {fileID: 3529064058622100165}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4339403790668660628 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b0617869da0483848b80fa63e442a5ff, type: 3}
+  m_PrefabInstance: {fileID: 3529064058622100165}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8669111740472119804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4339403790668660628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7259ee92cdfd9ed43961571c0470012e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 1034883858249073581, guid: 7df1b3d7d280ef04da43f535c38aae04, type: 3}
+  firePoint: {fileID: 7906833693947202703}
+--- !u!4 &7954386827527315966 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2406494791764597957, guid: b0617869da0483848b80fa63e442a5ff, type: 3}
   m_PrefabInstance: {fileID: 3529064058622100165}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3610435637398653104

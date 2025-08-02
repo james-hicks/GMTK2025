@@ -155,8 +155,8 @@ public class BoomerangSimpleArc : MonoBehaviour
         {
             hit.GetHit(1);
 
-            //GameObject fx = Instantiate(HitFX, other.transform.position, Quaternion.identity);
-            //Destroy(fx, 2f);
+            GameObject fx = Instantiate(HitFX, other.transform.position, Quaternion.identity);
+            Destroy(fx, 2f);
         }
     }
 }

@@ -1867,7 +1867,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1735450005255059701, guid: 535ac517213b6ea4b881d075f4032a98, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.285
+      value: -11.035
       objectReference: {fileID: 0}
     - target: {fileID: 1735450005255059701, guid: 535ac517213b6ea4b881d075f4032a98, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2727,21 +2727,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7031056599888461652, guid: 897b4463963219b4e8db6820aba07999, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7645989351850367866, guid: 897b4463963219b4e8db6820aba07999, type: 3}
       propertyPath: m_Name
       value: Enemy_Lizard_ThornBack
       objectReference: {fileID: 0}
-    - target: {fileID: 7645989351850367866, guid: 897b4463963219b4e8db6820aba07999, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8791783437997517476, guid: 897b4463963219b4e8db6820aba07999, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.25
+      value: 12.75
       objectReference: {fileID: 0}
     - target: {fileID: 8791783437997517476, guid: 897b4463963219b4e8db6820aba07999, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3008,6 +3000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 201654503556535065}
+  DamageEffect: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
   moveSpeed: 8
   boomerangPrefab: {fileID: 2790006514194752454, guid: 2b4bd691b84073b45948d1c6a17d39c0, type: 3}
   throwPoint: {fileID: 606655024983334638}

@@ -1,30 +1,26 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.Android;
-using UnityEngine.XR;
 
 public class Enemy : MonoBehaviour, IHitable
 {
     [Header("Enemy Stats")]
-    public float HP;
+    public float HP = 10f;
     public float viewRange = 20f;
     public float attackRange = 7f;
 
+    protected bool dead = false;
+    protected Animator animator;
+    protected NavMeshAgent agent;
+    protected Transform player;
 
-    private bool dead = false;  
-    private Animator animator;
-
-    private float hitCooldown;
-
-    private Coroutine currentState;
-    [Space]
+    protected float hitCooldown;
+    protected Coroutine currentState;
     public string CurrentStateName;
 
-    private NavMeshAgent agent;
-    private Transform player;
-
-    private void Awake()
+    protected virtual void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         player = FindFirstObjectByType<PlayerController>().transform;
@@ -35,82 +31,76 @@ public class Enemy : MonoBehaviour, IHitable
 
     public void SwitchState(IEnumerator newState)
     {
-        if(currentState != null)
-        {
+        if (currentState != null)
             StopCoroutine(currentState);
-        }
-        //Debug.Log("Switching to new State" + newState);
 
         currentState = StartCoroutine(newState);
     }
 
-    public IEnumerator IdleState()
+    // ----------------------
+    // CORE STATES
+    // ----------------------
+
+    public virtual IEnumerator IdleState()
     {
         CurrentStateName = "Idle";
         animator.SetBool("Move", false);
 
         while (true)
         {
-            if(Vector3.Distance(transform.position, player.position) < viewRange)
-            {
+            if (Vector3.Distance(transform.position, player.position) < viewRange)
                 SwitchState(ChaseState());
-            }
 
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
     }
 
-    public IEnumerator ChaseState()
+    public virtual IEnumerator ChaseState()
     {
         CurrentStateName = "Chase";
         animator.SetBool("Spin", false);
         animator.SetBool("Move", true);
+
         while (true)
         {
-            agent.speed = 4f;
-
             agent.isStopped = false;
+            agent.speed = 5f;
             agent.SetDestination(player.position);
 
             if (Vector3.Distance(transform.position, player.position) < attackRange)
             {
                 SwitchState(AttackState());
+                yield break;
             }
-            yield return new WaitForEndOfFrame();
+
+
+            yield return null;
         }
     }
 
-    public IEnumerator AttackState()
+    public virtual IEnumerator AttackState() // <-- This can be overridden
     {
         CurrentStateName = "Attack";
         agent.isStopped = true;
         animator.SetBool("Spin", true);
         animator.SetBool("Move", false);
+
         while (true)
         {
             agent.isStopped = false;
-            agent.SetDestination(player.position);
-            agent.speed = 3f;
+            agent.speed = 10f;
 
-            if (Vector3.Distance(transform.position, player.position) < 0.5f)
-            {
-                agent.isStopped = true;
-                agent.ResetPath();
-                agent.velocity = Vector3.zero;
-            }
-
-            if (Vector3.Distance(transform.position, player.position) > attackRange + 1)
-            {
-                SwitchState(ChaseState());
-            }
-
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(2f);
+            SwitchState(ChaseState());
+            yield break;
         }
+
+
     }
 
-    public IEnumerator HitState()
+    public virtual IEnumerator HitState()
     {
-        CurrentStateName = "Hit State";
+        CurrentStateName = "Hit";
         animator.SetTrigger("Hit");
 
         agent.ResetPath();
@@ -121,45 +111,41 @@ public class Enemy : MonoBehaviour, IHitable
 
         while (hitCooldown > 0)
         {
-            yield return new WaitForEndOfFrame();
+            hitCooldown -= Time.deltaTime;
+            yield return null;
         }
-
 
         SwitchState(IdleState());
     }
 
-    public void GetHit(int damage)
+    // ----------------------
+    // DAMAGE / DEATH
+    // ----------------------
+    public virtual void GetHit(int damage)
     {
         if (dead || hitCooldown > 0) return;
 
-
         HP -= damage;
         hitCooldown = 0.5f;
+
         if (HP <= 0f)
-        {
             Die();
-        }
         else
-        {
-            Debug.Log("Hit");
             SwitchState(HitState());
-        }
     }
 
-    private void Update()
-    {
-        if (hitCooldown > 0f)
-        {
-            hitCooldown -= Time.deltaTime;
-        }
-    }
-
-    private void Die()
+    protected virtual void Die()
     {
         StopAllCoroutines();
         agent.isStopped = true;
         dead = true;
         animator.SetBool("Death", true);
         Destroy(gameObject, 5f);
+    }
+
+    protected virtual void Update()
+    {
+        if (hitCooldown > 0)
+            hitCooldown -= Time.deltaTime;
     }
 }
