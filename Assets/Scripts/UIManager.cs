@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
 
     public static UIManager instance;
 
-
+    public GameObject[] hearts;
 
     private void Awake()
     {
@@ -25,6 +25,23 @@ public class UIManager : MonoBehaviour
     public void UpdateCooldownGraphic(float cooldown)
     {
         boomerangCooldown.fillAmount = cooldown / 4f;
+    }
+
+    public void UpdateHealth(int health)
+    {
+        health = health - 1;
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if(i <= health)
+            {
+                hearts[i].SetActive(true);
+            }
+            else
+            {
+                hearts[i].SetActive(false);
+            }
+        }
     }
 
 }

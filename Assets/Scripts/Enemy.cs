@@ -92,6 +92,13 @@ public class Enemy : MonoBehaviour, IHitable
             agent.SetDestination(player.position);
             agent.speed = 3f;
 
+            if (Vector3.Distance(transform.position, player.position) < 0.5f)
+            {
+                agent.isStopped = true;
+                agent.ResetPath();
+                agent.velocity = Vector3.zero;
+            }
+
             if (Vector3.Distance(transform.position, player.position) > attackRange + 1)
             {
                 SwitchState(ChaseState());

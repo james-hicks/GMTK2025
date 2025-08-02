@@ -14,16 +14,19 @@ public class PlayerController : MonoBehaviour
     public Transform throwPoint;
     public float boomerangCooldown = 0.5f;
 
-    [Header("Bounce")]
+    [Header("Hopping")]
     [SerializeField] private float bounceAmplitude = 0.2f;
     [SerializeField] private Transform visualBounceRoot;
     private bool isBouncing = false;
+
+    public int Health = 5;
 
     private float cooldownTimer;
     private float originalY;
     private Rigidbody rb;
     private Camera cam;
-    private bool isCatching;
+    private float dmgCD;
+    private bool isDead;
 
     void Start()
     {
@@ -80,6 +83,8 @@ public class PlayerController : MonoBehaviour
             localPos.y = Mathf.Lerp(localPos.y, 0f, Time.deltaTime * 10f);
             visualBounceRoot.localPosition = localPos;
         }
+
+        if(dmgCD > 0) dmgCD -= Time.deltaTime;
     }
 
     void FixedUpdate()
@@ -168,18 +173,22 @@ public class PlayerController : MonoBehaviour
         visualBounceRoot.localPosition = resetPos;
     }
 
-    public void PlayCatchAnimation()
-    {
-        if (isCatching) return; // already catching
-        animator.SetTrigger("Catch");
-        isCatching = true;
 
-        // reset after animation ends
-        Invoke(nameof(ResetCatchState), 0.5f); // adjust time to match your animation length
-    }
-
-    private void ResetCatchState()
+    public void TakeDamage(int damage)
     {
-        isCatching = false;
+        if(dmgCD <= 0 && !isDead)
+        {
+            Health -= damage;
+            Debug.Log("Take Damage" + Health);
+
+            UIManager.instance.UpdateHealth(Health);
+
+            dmgCD = 1.5f;
+        }
+
+        if (Health <= 0)
+        {
+            isDead = true;
+        }
     }
 }
