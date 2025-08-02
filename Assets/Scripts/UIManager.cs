@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private Image boomerangCooldown;
+    [SerializeField] private Image dashCooldown;
 
     public static UIManager instance;
 
@@ -22,10 +23,15 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void UpdateCooldownGraphic(float cooldown)
-    {
-        boomerangCooldown.fillAmount = cooldown / 4f;
-    }
+public void UpdateBoomerangCooldown(float current, float max)
+{
+    boomerangCooldown.fillAmount = Mathf.Clamp01(current / max);
+}
+
+public void UpdateDashCooldown(float current, float max)
+{
+    dashCooldown.fillAmount = Mathf.Clamp01(current / max);
+}
 
     public void UpdateHealth(int health)
     {

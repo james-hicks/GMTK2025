@@ -136,6 +136,7 @@ public class Enemy : MonoBehaviour, IHitable
 
     protected virtual void Die()
     {
+        gameObject.layer = LayerMask.NameToLayer("EnemyImmune");
         StopAllCoroutines();
         agent.isStopped = true;
         dead = true;

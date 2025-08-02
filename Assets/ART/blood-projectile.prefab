@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1774251985513104733}
   - component: {fileID: 2420296516232512751}
   - component: {fileID: 3577785108139733829}
+  - component: {fileID: 3437259551591708604}
   m_Layer: 0
   m_Name: blood-projectile
   m_TagString: Untagged
@@ -67,6 +68,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e13fe6da01d22b4f93cd64fc543a8a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impactPrefab: {fileID: 1001678597126782181, guid: 7c9e26743b28a4b40b2a5a5d4250bd68, type: 3}
+--- !u!114 &3437259551591708604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034883858249073581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee3463f4fe900404b9ce6258f9abe0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 5
 --- !u!1 &1958275945521160483
 GameObject:
   m_ObjectHideFlags: 0

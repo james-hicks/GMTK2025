@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject DamageEffect;
-
+    [SerializeField] private GameObject CatchEffect;
 
     [Header("Boomerang")]
     public GameObject boomerangPrefab;
@@ -19,8 +19,14 @@ public class PlayerController : MonoBehaviour
     private bool isBouncing = false;
     private bool isCatching;
 
+    [Header("Dash")]
+    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1.5f;
 
-
+    private bool isDashing = false;
+    private float dashCooldownTimer = 0f;
+    private float mouseLookDelay = 0f;
 
     [Header("Upgrade-able Stats")]
     public int maxHealth = 5;
@@ -93,7 +99,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        UIManager.instance.UpdateCooldownGraphic(cooldownTimer);
+        if (mouseLookDelay > 0f)
+            mouseLookDelay -= Time.deltaTime;
+
+  UIManager.instance.UpdateBoomerangCooldown(cooldownTimer, boomerangCooldown);
+UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
 
         // Smoothly return bounce to ground
         if (!isBouncing)
@@ -104,7 +114,14 @@ public class PlayerController : MonoBehaviour
         }
 
         if(dmgCD > 0) dmgCD -= Time.deltaTime;
+        
+        // Dash cooldown
+        dashCooldownTimer -= Time.deltaTime;
 
+        if (Input.GetKeyDown(KeyCode.Space) && dashCooldownTimer <= 0f && !isDashing)
+        {
+            StartCoroutine(Dash());
+        }
     }
 
     void FixedUpdate()
@@ -139,6 +156,8 @@ public class PlayerController : MonoBehaviour
 
     void RotateTowardsMouse()
     {
+        if (isDashing || mouseLookDelay > 0f) return;
+
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
 
@@ -147,15 +166,19 @@ public class PlayerController : MonoBehaviour
             Vector3 point = ray.GetPoint(distance);
             Vector3 lookDir = (point - transform.position).normalized;
             lookDir.y = 0;
+
             if (lookDir != Vector3.zero)
-                transform.forward = lookDir;
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(lookDir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            }
         }
     }
 
     public void ResetThrowCooldown()
     {
         cooldownTimer = 0.1f; // Normal cooldown if caught
-        UIManager.instance.UpdateCooldownGraphic(cooldownTimer);
+        UIManager.instance.UpdateBoomerangCooldown(cooldownTimer, boomerangCooldown);
     }
 
     public void TriggerHopBounce()
@@ -193,6 +216,45 @@ public class PlayerController : MonoBehaviour
         visualBounceRoot.localPosition = resetPos;
     }
 
+    private IEnumerator Dash()
+    {
+        isDashing = true;
+
+        // Capture dash direction from input (or use forward fallback)
+        Vector3 inputDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical")).normalized;
+        if (inputDir == Vector3.zero)
+        {
+            isDashing = false;
+            yield break;
+        }
+
+        float originalSpeed = moveSpeed;
+        moveSpeed = dashSpeed;
+
+        // Rotate to face dash direction instantly
+        Quaternion dashRotation = Quaternion.LookRotation(inputDir, Vector3.up);
+        transform.rotation = dashRotation;
+
+        animator.SetTrigger("Dash");
+
+        float elapsed = 0f;
+        while (elapsed < dashDuration)
+        {
+            rb.linearVelocity = inputDir * dashSpeed;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        moveSpeed = originalSpeed;
+        isDashing = false;
+        mouseLookDelay = 0.3f;
+        dashCooldownTimer = dashCooldown;
+
+        // Return to mouse facing on next frame
+        RotateTowardsMouse();
+    }
+
+
 
     public void TakeDamage(int damage)
     {
@@ -201,7 +263,7 @@ public class PlayerController : MonoBehaviour
             currentHealth -= damage;
 
             GameObject dmg = Instantiate(DamageEffect, transform.position + Vector3.up, Quaternion.identity);
-            Destroy(dmg, 1f);
+            Destroy(dmg, 3f);
             animator.SetTrigger("Hit");
 
             UIManager.instance.UpdateHealth(currentHealth);
@@ -218,6 +280,8 @@ public class PlayerController : MonoBehaviour
     public void PlayCatchAnimation()
     {
         if (isCatching) return; // already catching
+        GameObject catchFX = Instantiate(CatchEffect, transform.position + Vector3.up, Quaternion.identity);
+        Destroy(catchFX, 3f);
         animator.SetTrigger("Catch");
         isCatching = true;
 
@@ -254,5 +318,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
+
 
 }

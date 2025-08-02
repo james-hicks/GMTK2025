@@ -1,13 +1,18 @@
 using UnityEngine;
 
-// Place this on the Animator object (Kangaroo_Character)
 public class AnimationEventForwarder : MonoBehaviour
 {
-    public PlayerController controller;
+    public MonoBehaviour[] targets;
 
-    public void TriggerHopBounce()
+    public void ForwardEvent(string methodName)
     {
-        if (controller != null)
-            controller.TriggerHopBounce();
+        foreach (var target in targets)
+        {
+            if (target == null) continue;
+
+            var method = target.GetType().GetMethod(methodName);
+            if (method != null)
+                method.Invoke(target, null);
+        }
     }
 }
