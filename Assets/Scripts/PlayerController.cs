@@ -25,13 +25,11 @@ public class PlayerController : MonoBehaviour
     [Header("Upgrade-able Stats")]
     public int maxHealth = 5;
     private int currentHealth;
-
     public float baseMoveSpeed = 5f;
     private float moveSpeed;
-
     public float boomerangCooldown = 0.5f;
-
     public int Damage = 1;
+    public float BoomerangBaseScale = 1.5f;
 
 
     private float cooldownTimer;
@@ -87,6 +85,7 @@ public class PlayerController : MonoBehaviour
                 boomerangScript.playerController = this;
                 boomerangScript.forwardDistance = throwDistance;
                 boomerangScript.Damage = Damage;// Set distance dynamically
+                boomerang.transform.localScale = Vector3.one * BoomerangBaseScale;
 
                 cooldownTimer = boomerangCooldown;
 
@@ -249,6 +248,9 @@ public class PlayerController : MonoBehaviour
                 maxHealth += 1;
                 currentHealth += 1;
                 UIManager.instance.UpdateHealth(currentHealth);
+                break;
+            case 4:
+                BoomerangBaseScale += 0.1f;
                 break;
         }
     }
