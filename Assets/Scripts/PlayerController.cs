@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(isDead) return;
+
         // Handle rotation to face mouse
         RotateTowardsMouse();
 
@@ -185,15 +187,17 @@ public class PlayerController : MonoBehaviour
 
             GameObject dmg = Instantiate(DamageEffect, transform.position + Vector3.up, Quaternion.identity);
             Destroy(dmg, 1f);
+            animator.SetTrigger("Hit");
 
             UIManager.instance.UpdateHealth(Health);
 
             dmgCD = 1.5f;
         }
 
-        if (Health <= 0)
+        if (Health <= 0 && !isDead)
         {
             isDead = true;
+            animator.SetTrigger("Death");
         }
     }
     public void PlayCatchAnimation()
