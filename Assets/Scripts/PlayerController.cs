@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float bounceAmplitude = 0.2f;
     [SerializeField] private Transform visualBounceRoot;
     private bool isBouncing = false;
+    private bool isCatching;
 
     public int Health = 5;
 
@@ -190,5 +191,19 @@ public class PlayerController : MonoBehaviour
         {
             isDead = true;
         }
+    }
+    public void PlayCatchAnimation()
+    {
+        if (isCatching) return; // already catching
+        animator.SetTrigger("Catch");
+        isCatching = true;
+
+        // reset after animation ends
+        Invoke(nameof(ResetCatchState), 0.5f); // adjust time to match your animation length
+    }
+
+    private void ResetCatchState()
+    {
+        isCatching = false;
     }
 }
