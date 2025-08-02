@@ -120,6 +120,14 @@ public class BoomerangSimpleArc : MonoBehaviour
         }
     }
 
+    void LateUpdate()
+    {
+        // Lock height to player's throw point height
+        Vector3 pos = transform.position;
+        pos.y = player.position.y + 1f; // Adjust offset if needed
+        transform.position = pos;
+    }
+
     private void CatchBoomerang()
     {
         caught = true;
@@ -147,8 +155,8 @@ public class BoomerangSimpleArc : MonoBehaviour
         {
             hit.GetHit(1);
 
-            GameObject fx = Instantiate(HitFX, other.transform.position, Quaternion.identity);
-            Destroy(fx, 2f);
+            //GameObject fx = Instantiate(HitFX, other.transform.position, Quaternion.identity);
+            //Destroy(fx, 2f);
         }
     }
 }
