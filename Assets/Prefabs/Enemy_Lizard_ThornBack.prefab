@@ -104,8 +104,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 2
-  viewRange: 40
-  attackRange: 15
+  viewRange: 70
+  attackRange: 10
   CurrentStateName: 
 --- !u!195 &2461893122120861818
 NavMeshAgent:

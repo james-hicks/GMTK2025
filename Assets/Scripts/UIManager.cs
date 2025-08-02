@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image boomerangCooldown;
     [SerializeField] private Image dashCooldown;
     [SerializeField] private Animator deathPanelAnimator;
+    [SerializeField] private TextMeshProUGUI roundNumber;
 
     public static UIManager instance;
 
@@ -54,6 +56,11 @@ public class UIManager : MonoBehaviour
                 hearts[i].SetActive(false);
             }
         }
+    }
+
+    public void UpdateRoundNumber(int round)
+    {
+        roundNumber.text = round.ToString();
     }
 
 }

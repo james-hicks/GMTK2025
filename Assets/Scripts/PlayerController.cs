@@ -246,14 +246,27 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
             elapsed += Time.deltaTime;
             yield return null;
         }
-
+        // After dash ends:
         moveSpeed = originalSpeed;
         isDashing = false;
-        mouseLookDelay = 0.3f;
         dashCooldownTimer = dashCooldown;
 
-        // Return to mouse facing on next frame
-        RotateTowardsMouse();
+        // Instantly snap rotation to mouse direction
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+
+        if (groundPlane.Raycast(ray, out float distance))
+        {
+            Vector3 point = ray.GetPoint(distance);
+            Vector3 lookDir = (point - transform.position).normalized;
+            lookDir.y = 0f;
+
+            if (lookDir != Vector3.zero)
+                transform.rotation = Quaternion.LookRotation(lookDir);
+        }
+
+        // Optional: reset mouse-look delay
+        mouseLookDelay = 0.1f;
     }
 
 
@@ -317,12 +330,18 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
                 moveSpeed += 0.2f;
                 break;
             case 3:
-                maxHealth += 1;
-                currentHealth += 1;
-                UIManager.instance.UpdateHealth(currentHealth);
+                if(currentHealth != maxHealth)
+                {
+                    currentHealth += 1;
+                    UIManager.instance.UpdateHealth(currentHealth);
+                }
+
                 break;
             case 4:
                 BoomerangBaseScale += 0.1f;
+                break;
+            case 5:
+                dashCooldown -= 0.1f;
                 break;
         }
     }

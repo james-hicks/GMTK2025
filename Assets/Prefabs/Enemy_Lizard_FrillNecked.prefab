@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 3
-  viewRange: 30
+  viewRange: 70
   attackRange: 7
   CurrentStateName: 
 --- !u!136 &3845287899261864054

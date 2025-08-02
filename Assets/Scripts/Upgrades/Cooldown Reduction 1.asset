@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cb071c2ced357e4ba7704c1dd900bb7, type: 3}
-  m_Name: Health
+  m_Name: Cooldown Reduction 1
   m_EditorClassIdentifier: 
-  UpgradeName: HEALTH
-  UpgradeIcon: {fileID: 21300000, guid: 59c63aea22d813d4eb3a1611a7ac4d37, type: 3}
-  UpgradeDescription: HEAL BY 1
-  UpgradeIndex: 3
+  UpgradeName: DODGE COOLDOWN
+  UpgradeIcon: {fileID: 21300000, guid: eff65ebb85e32ad4395681ad65e17146, type: 3}
+  UpgradeDescription: DECREASES COOLDOWN OF DODGE ROLL.
+  UpgradeIndex: 5

@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour, IHitable
     protected Coroutine currentState;
     public string CurrentStateName;
 
+    public System.Action OnDeath;
+
     protected virtual void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -138,6 +140,9 @@ public class Enemy : MonoBehaviour, IHitable
     {
         gameObject.layer = LayerMask.NameToLayer("EnemyImmune");
         StopAllCoroutines();
+        OnDeath?.Invoke();
+
+
         agent.isStopped = true;
         dead = true;
         animator.SetBool("Death", true);

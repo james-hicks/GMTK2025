@@ -24,6 +24,7 @@ public class UpgradeOption : MonoBehaviour
 
     public void SelectUpgrade()
     {
+        Debug.Log("Select Upgrade");
         um.SelectedUpgrade(upgrade);
     }
 }
