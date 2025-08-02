@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour, IHitable
     public float viewRange = 20f;
     public float attackRange = 7f;
 
+    public GameObject HurtBox;
+
     protected bool dead = false;
     protected Animator animator;
     protected NavMeshAgent agent;
@@ -66,7 +68,7 @@ public class Enemy : MonoBehaviour, IHitable
         while (true)
         {
             agent.isStopped = false;
-            agent.speed = 5f;
+            agent.speed = 7f;
             agent.SetDestination(player.position);
 
             if (Vector3.Distance(transform.position, player.position) < attackRange)
@@ -90,7 +92,7 @@ public class Enemy : MonoBehaviour, IHitable
         while (true)
         {
             agent.isStopped = false;
-            agent.speed = 10f;
+            agent.speed = 12f;
 
             yield return new WaitForSeconds(2f);
             SwitchState(ChaseState());
@@ -126,6 +128,8 @@ public class Enemy : MonoBehaviour, IHitable
     public virtual void GetHit(int damage)
     {
         if (dead || hitCooldown > 0) return;
+
+        if(HurtBox != null) HurtBox.SetActive(false);
 
         HP -= damage;
         hitCooldown = 0.5f;

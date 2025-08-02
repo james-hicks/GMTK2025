@@ -1766,6 +1766,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 88f31057705c2c4409e5848c9bf778d5, type: 2}
   - {fileID: 11400000, guid: 2512d18ef9f3ec04f810d60b2e9fb420, type: 2}
   - {fileID: 11400000, guid: 9fbcf1f288155da4abff8a02b3040abf, type: 2}
+  - {fileID: 11400000, guid: ac942619b07db18418d3e98cb0a6269e, type: 2}
   chosenUpgrades: []
   options:
   - {fileID: 6444262308711258928}
@@ -1927,7 +1928,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -46.99945}
+  m_AnchoredPosition: {x: 0, y: -46.99939}
   m_SizeDelta: {x: 200, y: 93.9989}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4070331566841987220
