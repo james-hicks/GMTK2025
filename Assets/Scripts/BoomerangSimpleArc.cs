@@ -123,7 +123,13 @@ public class BoomerangSimpleArc : MonoBehaviour
     private void CatchBoomerang()
     {
         caught = true;
-        if (playerController != null) playerController.ResetThrowCooldown();
+
+        if (playerController != null)
+        {
+            playerController.ResetThrowCooldown();
+            playerController.PlayCatchAnimation();
+        }
+
         Destroy(gameObject);
         Debug.Log("Boomerang caught!");
     }

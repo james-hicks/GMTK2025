@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public Transform throwPoint;
     public float boomerangCooldown = 0.5f;
 
-    [Header("Hopping")]
+    [Header("Bounce")]
     [SerializeField] private float bounceAmplitude = 0.2f;
     [SerializeField] private Transform visualBounceRoot;
     private bool isBouncing = false;
@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private float originalY;
     private Rigidbody rb;
     private Camera cam;
+    private bool isCatching;
 
     void Start()
     {
@@ -165,5 +166,20 @@ public class PlayerController : MonoBehaviour
         Vector3 resetPos = visualBounceRoot.localPosition;
         resetPos.y = 0f;
         visualBounceRoot.localPosition = resetPos;
+    }
+
+    public void PlayCatchAnimation()
+    {
+        if (isCatching) return; // already catching
+        animator.SetTrigger("Catch");
+        isCatching = true;
+
+        // reset after animation ends
+        Invoke(nameof(ResetCatchState), 0.5f); // adjust time to match your animation length
+    }
+
+    private void ResetCatchState()
+    {
+        isCatching = false;
     }
 }
