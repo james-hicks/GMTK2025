@@ -58,7 +58,9 @@ public class BoomerangSimpleArc : MonoBehaviour
             // Outward arc
             timer += Time.deltaTime / flightDuration;
             float t = Mathf.Clamp01(timer);
-            transform.position = QuadraticBezier(startPos, apexControl, apexPos, t);
+            Vector3 outwardPos = QuadraticBezier(startPos, apexControl, apexPos, t);
+            outwardPos.y = player.position.y + 1f;  // Maintain flight height
+            transform.position = outwardPos;
 
             if (t >= 1f)
             {
@@ -74,8 +76,11 @@ public class BoomerangSimpleArc : MonoBehaviour
             Vector3 returnControl = apexPos + sideDir * arcWidth * -side;
 
             Vector3 newPos = QuadraticBezier(apexPos, returnControl, player.position, t);
+            newPos.y = player.position.y + 1f;
 
+            // ✅ Calculate direction BEFORE snapping to final position
             lastDirection = (newPos - transform.position).normalized;
+
             transform.position = newPos;
 
             // Catch check
@@ -85,17 +90,27 @@ public class BoomerangSimpleArc : MonoBehaviour
                 return;
             }
 
-            // When return arc completes, start grace period
+            // ✅ Ensure we still have direction at the end of the curve
             if (t >= 1f)
             {
+                if (lastDirection.sqrMagnitude < 0.01f)
+                {
+                    lastDirection = (player.position - apexPos).normalized; // fallback direction
+                }
+
                 graceTimer = catchGraceTime;
-                missed = true; // Transition to fly-past mode, but still catchable briefly
+                missed = true; // Transition to fly-past mode
             }
         }
         else if (missed && !caught)
         {
             // Fly past while grace timer is active
-            transform.position += lastDirection * flyPastSpeed * Time.deltaTime;
+            Vector3 move = lastDirection * flyPastSpeed * Time.deltaTime;
+            Vector3 newPos = transform.position + move;
+
+            // Lock height inline instead of in LateUpdate
+            newPos.y = player.position.y + 1f;
+            transform.position = newPos;
 
             if (graceTimer > 0f)
             {
@@ -110,7 +125,6 @@ public class BoomerangSimpleArc : MonoBehaviour
             }
             else
             {
-
                 // Destroy if far away
                 if (Vector3.Distance(transform.position, player.position) > offscreenDestroyDistance)
                 {
@@ -120,13 +134,13 @@ public class BoomerangSimpleArc : MonoBehaviour
         }
     }
 
-    void LateUpdate()
-    {
-        // Lock height to player's throw point height
-        Vector3 pos = transform.position;
-        pos.y = player.position.y + 1f; // Adjust offset if needed
-        transform.position = pos;
-    }
+    //void LateUpdate()
+    //{
+    //    // Lock height to player's throw point height
+    //    Vector3 pos = transform.position;
+    //    pos.y = player.position.y + 1f; // Adjust offset if needed
+    //    transform.position = pos;
+    //}
 
     private void CatchBoomerang()
     {
