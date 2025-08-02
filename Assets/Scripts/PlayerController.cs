@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Animator")]
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject DamageEffect;
 
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -181,6 +182,9 @@ public class PlayerController : MonoBehaviour
         {
             Health -= damage;
             Debug.Log("Take Damage" + Health);
+
+            GameObject dmg = Instantiate(DamageEffect, transform.position + Vector3.up, Quaternion.identity);
+            Destroy(dmg, 1f);
 
             UIManager.instance.UpdateHealth(Health);
 
