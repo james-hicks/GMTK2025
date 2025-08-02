@@ -14635,7 +14635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 2
-  viewRange: 30
+  viewRange: 20
   attackRange: 3
   CurrentStateName: 
   isBurrowed: 0

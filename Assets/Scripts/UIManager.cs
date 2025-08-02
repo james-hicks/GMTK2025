@@ -5,6 +5,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private Image boomerangCooldown;
     [SerializeField] private Image dashCooldown;
+    [SerializeField] private Animator deathPanelAnimator;
 
     public static UIManager instance;
 
@@ -22,16 +23,21 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void TriggerDeathAnimation()
+    {
+        deathPanelAnimator.SetTrigger("FadeIn");
 
-public void UpdateBoomerangCooldown(float current, float max)
-{
-    boomerangCooldown.fillAmount = Mathf.Clamp01(current / max);
-}
+    }
 
-public void UpdateDashCooldown(float current, float max)
-{
-    dashCooldown.fillAmount = Mathf.Clamp01(current / max);
-}
+    public void UpdateBoomerangCooldown(float current, float max)
+    {
+        boomerangCooldown.fillAmount = Mathf.Clamp01(current / max);
+    }
+
+    public void UpdateDashCooldown(float current, float max)
+    {
+        dashCooldown.fillAmount = Mathf.Clamp01(current / max);
+    }
 
     public void UpdateHealth(int health)
     {

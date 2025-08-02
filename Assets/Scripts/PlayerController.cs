@@ -126,6 +126,8 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
 
     void FixedUpdate()
     {
+        if (isDead) return;
+
         // Get input
         float h = Input.GetAxisRaw("Horizontal"); // Raw = instant 1/-1 (snappy)
         float v = Input.GetAxisRaw("Vertical");
@@ -156,7 +158,7 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
 
     void RotateTowardsMouse()
     {
-        if (isDashing || mouseLookDelay > 0f) return;
+        if (isDead || isDashing || mouseLookDelay > 0f) return;
 
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
@@ -275,6 +277,12 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
         {
             isDead = true;
             animator.SetTrigger("Death");
+            UIManager.instance.TriggerDeathAnimation();
+
+            // Stop movement and rotation upon death
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
         }
     }
     public void PlayCatchAnimation()
