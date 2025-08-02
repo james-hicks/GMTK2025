@@ -7,13 +7,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject DamageEffect;
 
-    [Header("Movement")]
-    public float moveSpeed = 5f;
 
     [Header("Boomerang")]
     public GameObject boomerangPrefab;
     public Transform throwPoint;
-    public float boomerangCooldown = 0.5f;
+
 
     [Header("Hopping")]
     [SerializeField] private float bounceAmplitude = 0.2f;
@@ -21,7 +19,20 @@ public class PlayerController : MonoBehaviour
     private bool isBouncing = false;
     private bool isCatching;
 
-    public int Health = 5;
+
+
+
+    [Header("Upgrade-able Stats")]
+    public int maxHealth = 5;
+    private int currentHealth;
+
+    public float baseMoveSpeed = 5f;
+    private float moveSpeed;
+
+    public float boomerangCooldown = 0.5f;
+
+    public int Damage = 1;
+
 
     private float cooldownTimer;
     private float originalY;
@@ -36,6 +47,10 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main;
         cooldownTimer = 0f;
         originalY = transform.position.y;
+
+        moveSpeed = baseMoveSpeed;
+        currentHealth = maxHealth;
+
     }
 
     void Update()
@@ -70,7 +85,8 @@ public class PlayerController : MonoBehaviour
                 var boomerangScript = boomerang.GetComponent<BoomerangSimpleArc>();
                 boomerangScript.player = this.transform;
                 boomerangScript.playerController = this;
-                boomerangScript.forwardDistance = throwDistance; // Set distance dynamically
+                boomerangScript.forwardDistance = throwDistance;
+                boomerangScript.Damage = Damage;// Set distance dynamically
 
                 cooldownTimer = boomerangCooldown;
 
@@ -89,6 +105,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if(dmgCD > 0) dmgCD -= Time.deltaTime;
+
     }
 
     void FixedUpdate()
@@ -182,19 +199,18 @@ public class PlayerController : MonoBehaviour
     {
         if(dmgCD <= 0 && !isDead)
         {
-            Health -= damage;
-            Debug.Log("Take Damage" + Health);
+            currentHealth -= damage;
 
             GameObject dmg = Instantiate(DamageEffect, transform.position + Vector3.up, Quaternion.identity);
             Destroy(dmg, 1f);
             animator.SetTrigger("Hit");
 
-            UIManager.instance.UpdateHealth(Health);
+            UIManager.instance.UpdateHealth(currentHealth);
 
             dmgCD = 1.5f;
         }
 
-        if (Health <= 0 && !isDead)
+        if (currentHealth <= 0 && !isDead)
         {
             isDead = true;
             animator.SetTrigger("Death");
@@ -214,4 +230,27 @@ public class PlayerController : MonoBehaviour
     {
         isCatching = false;
     }
+
+
+    public void ApplyUpgrades(int upgradeIndex)
+    {
+        switch (upgradeIndex)
+        {
+            case 0:
+                Damage += 1;
+                break;
+            case 1:
+                boomerangCooldown -= 0.1f;
+                break;
+            case 2:
+                moveSpeed += 0.2f;
+                break;
+            case 3:
+                maxHealth += 1;
+                currentHealth += 1;
+                UIManager.instance.UpdateHealth(currentHealth);
+                break;
+        }
+    }
+
 }

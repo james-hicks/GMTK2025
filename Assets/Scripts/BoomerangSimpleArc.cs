@@ -18,6 +18,9 @@ public class BoomerangSimpleArc : MonoBehaviour
     public float flyPastSpeed = 10f;
     public float catchGraceTime = 0.3f; // Extra time after passing player to still catch
 
+    public int Damage = 1;
+
+
     private Vector3 startPos;
     private Vector3 forwardDir;
     private Vector3 sideDir;
@@ -167,7 +170,7 @@ public class BoomerangSimpleArc : MonoBehaviour
     {
         if(other.TryGetComponent(out IHitable hit))
         {
-            hit.GetHit(1);
+            hit.GetHit(Damage);
 
             GameObject fx = Instantiate(HitFX, other.transform.position, Quaternion.identity);
             Destroy(fx, 2f);
