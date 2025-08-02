@@ -1,27 +1,35 @@
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
+
     [Header("Movement")]
     public float moveSpeed = 5f;
 
     [Header("Boomerang")]
     public GameObject boomerangPrefab;
-    public Transform throwPoint; // where the boomerang spawns from
+    public Transform throwPoint;
     public float boomerangCooldown = 0.5f;
 
-    private float cooldownTimer;
+    [Header("Hopping")]
+    [SerializeField] private float bounceAmplitude = 0.2f;
+    [SerializeField] private Transform visualBounceRoot;
+    private bool isBouncing = false;
 
+    private float cooldownTimer;
+    private float originalY;
     private Rigidbody rb;
     private Camera cam;
-    private Animator animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
         cam = Camera.main;
         cooldownTimer = 0f;
+        originalY = transform.position.y;
     }
 
     void Update()
@@ -63,6 +71,14 @@ public class PlayerController : MonoBehaviour
         }
 
         UIManager.instance.UpdateCooldownGraphic(cooldownTimer);
+
+        // Smoothly return bounce to ground
+        if (!isBouncing)
+        {
+            Vector3 localPos = visualBounceRoot.localPosition;
+            localPos.y = Mathf.Lerp(localPos.y, 0f, Time.deltaTime * 10f);
+            visualBounceRoot.localPosition = localPos;
+        }
     }
 
     void FixedUpdate()
@@ -86,7 +102,7 @@ public class PlayerController : MonoBehaviour
         if (input != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(input, Vector3.up);
-            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, 0.2f); // Smooth turn
+            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, 0.2f);
         }
         else
         {
@@ -114,5 +130,40 @@ public class PlayerController : MonoBehaviour
     {
         cooldownTimer = 0.1f; // Normal cooldown if caught
         UIManager.instance.UpdateCooldownGraphic(cooldownTimer);
+    }
+
+    public void TriggerHopBounce()
+    {
+        if (!animator.GetBool("Move")) return; //Prevent bounce if not moving
+
+        isBouncing = true;
+        StopCoroutine("BounceRoutine");
+        StartCoroutine(BounceRoutine());
+    }
+
+    private IEnumerator BounceRoutine()
+    {
+        float duration = 0.3f;
+        float timer = 0f;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float normalized = timer / duration;
+            float bounce = Mathf.Sin(normalized * Mathf.PI) * bounceAmplitude;
+
+            Vector3 localPos = visualBounceRoot.localPosition;
+            localPos.y = bounce;
+            visualBounceRoot.localPosition = localPos;
+
+            yield return null;
+        }
+
+        isBouncing = false;
+
+        // Reset to ground level
+        Vector3 resetPos = visualBounceRoot.localPosition;
+        resetPos.y = 0f;
+        visualBounceRoot.localPosition = resetPos;
     }
 }
