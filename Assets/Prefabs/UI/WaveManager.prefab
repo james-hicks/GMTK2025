@@ -337,7 +337,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeManager: {fileID: 0}
-  enemyPrefabs: []
+  waveClearedAnimator: {fileID: 0}
+  countdownText: {fileID: 0}
+  upgradeDelay: 1.5
+  enemyPrefabs:
+  - {fileID: 7645989351850367866, guid: 897b4463963219b4e8db6820aba07999, type: 3}
+  - {fileID: 9134918428682711678, guid: 535ac517213b6ea4b881d075f4032a98, type: 3}
+  - {fileID: 3302467335532925096, guid: 3db19d73f2885dd4ba612d531c0d53b6, type: 3}
   spawnPoints:
   - {fileID: 140429020704750006}
   - {fileID: 2799272719177814096}
@@ -351,9 +357,9 @@ MonoBehaviour:
   - {fileID: 1390158971652099581}
   - {fileID: 523628336166089346}
   - {fileID: 8274841598049259117}
-  enemiesPerWave: 5
-  spawnDelay: 0.5
-  waveDelay: 3
+  enemiesPerWave: 3
+  spawnDelay: 0.1
+  waveDelay: 1.2
 --- !u!1 &7033790196527602409
 GameObject:
   m_ObjectHideFlags: 0
