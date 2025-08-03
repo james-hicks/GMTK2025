@@ -93,7 +93,7 @@ public class Enemy : MonoBehaviour, IHitable
 
         if(HurtBox != null)
         {
-            GetComponentInChildren<AudioSource>().PlayOneShot(attackSound, 0.5f);
+            GetComponent<AudioSource>().Play();
         }
 
         while (true)
@@ -120,6 +120,7 @@ public class Enemy : MonoBehaviour, IHitable
         animator.SetBool("Spin", false);
         animator.SetBool("Move", false);
 
+        GetComponent<AudioSource>().Stop();
         while (hitCooldown > 0)
         {
             hitCooldown -= Time.deltaTime;

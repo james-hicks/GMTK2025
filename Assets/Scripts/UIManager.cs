@@ -69,4 +69,14 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void Menu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
