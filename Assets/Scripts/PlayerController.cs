@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject DamageEffect;
     [SerializeField] private GameObject CatchEffect;
+    [SerializeField] private GameObject HealingEffect;
 
     [Header("Boomerang")]
     public GameObject boomerangPrefab;
@@ -26,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isDashing = false;
     private float dashCooldownTimer = 0f;
-    private float mouseLookDelay = 0f;
+    private float mouseLookDelay = 0.2f;
 
     [Header("Upgrade-able Stats")]
     public int maxHealth = 5;
@@ -262,21 +263,38 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
 
-        if (groundPlane.Raycast(ray, out float distance))
-        {
-            Vector3 point = ray.GetPoint(distance);
-            Vector3 lookDir = (point - transform.position).normalized;
-            lookDir.y = 0f;
-
-            if (lookDir != Vector3.zero)
-                transform.rotation = Quaternion.LookRotation(lookDir);
-        }
+        StartCoroutine(SmoothLookToMouse(0.1f));
 
         // Optional: reset mouse-look delay
         mouseLookDelay = 0.1f;
     }
 
+    private IEnumerator SmoothLookToMouse(float duration)
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
 
+        if (!groundPlane.Raycast(ray, out float distance)) yield break;
+
+        Vector3 targetPoint = ray.GetPoint(distance);
+        Vector3 targetDir = (targetPoint - transform.position).normalized;
+        targetDir.y = 0f;
+
+        if (targetDir == Vector3.zero) yield break;
+
+        Quaternion startRot = transform.rotation;
+        Quaternion endRot = Quaternion.LookRotation(targetDir);
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            transform.rotation = Quaternion.Slerp(startRot, endRot, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = endRot;
+    }
 
     public void TakeDamage(int damage)
     {
@@ -342,6 +360,7 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
                 if(currentHealth != maxHealth)
                 {
                     currentHealth += 1;
+                    GameObject healFX = Instantiate(HealingEffect, transform.position + Vector3.up, Quaternion.identity);
                     UIManager.instance.UpdateHealth(currentHealth);
                 }
 

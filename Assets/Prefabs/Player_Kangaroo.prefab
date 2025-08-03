@@ -1495,6 +1495,7 @@ MonoBehaviour:
   animator: {fileID: 760866175182816454}
   DamageEffect: {fileID: 6855314210357232287, guid: 7c2a9b83b809a0848915fabd9596b68b, type: 3}
   CatchEffect: {fileID: 6927778550693383548, guid: 6b0a1555348ad764d9a50272ff194899, type: 3}
+  HealingEffect: {fileID: 9017484664307500583, guid: 1245b8d2997d5b34fb1637be70a7eb05, type: 3}
   boomerangPrefab: {fileID: 2790006514194752454, guid: 2b4bd691b84073b45948d1c6a17d39c0, type: 3}
   throwPoint: {fileID: 11274346730342705}
   bounceAmplitude: 0.8
