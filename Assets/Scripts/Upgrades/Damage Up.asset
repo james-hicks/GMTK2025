@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Damage Up
   m_EditorClassIdentifier: 
   UpgradeName: DAMAGE UP
-  UpgradeIcon: {fileID: 21300000, guid: 07caf3d1930bab14aa8f6dcdf2db871a, type: 3}
+  UpgradeIcon: {fileID: 21300000, guid: 4c982c3b9381e7244aa62f1f07cd5de1, type: 3}
   UpgradeDescription: INCREASES BOOMERANG BASE DAMAGE.
   UpgradeIndex: 0

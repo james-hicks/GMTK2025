@@ -55,7 +55,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    private void SpawnEnemy(int unlockedEnemies) 
+    private void SpawnEnemy(int unlockedEnemies)
     {
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
@@ -64,10 +64,15 @@ public class WaveManager : MonoBehaviour
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
         activeEnemies.Add(enemy);
 
+        EnemyManager.Instance.RegisterEnemy(enemy.transform);
+
         Enemy enemyScript = enemy.GetComponent<Enemy>();
         if (enemyScript != null)
         {
-            enemyScript.OnDeath += () => activeEnemies.Remove(enemy);
+            enemyScript.OnDeath += () => {
+                activeEnemies.Remove(enemy);
+                EnemyManager.Instance.UnregisterEnemy(enemy.transform);
+            };
         }
     }
 

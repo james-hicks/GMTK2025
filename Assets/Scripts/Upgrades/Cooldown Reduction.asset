@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Cooldown Reduction
   m_EditorClassIdentifier: 
   UpgradeName: BOOMERANG COOLDOWN
-  UpgradeIcon: {fileID: 21300000, guid: 6957d0e9e59addf438d0f5d67d81eab4, type: 3}
+  UpgradeIcon: {fileID: 21300000, guid: 6dfd8c60236145a4287e31ea75063405, type: 3}
   UpgradeDescription: DECREASES COOLDOWN OF BOOMERANG THROW.
   UpgradeIndex: 1
