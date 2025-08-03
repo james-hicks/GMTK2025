@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour
             countdown--;
         }
         waveCountAnimator.SetTrigger("FadeOut");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(4f);
         countDownPanel.SetActive(false);
         wavePanelObject.SetActive(false);
 

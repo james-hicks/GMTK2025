@@ -8,7 +8,7 @@ public class EnemyBullet : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(new Vector3(0.0f, 0.0f, 0.1f));
+        transform.Translate(new Vector3(0.0f, 0.0f, 0.05f));
     }
 
     private void OnTriggerEnter(Collider other)
