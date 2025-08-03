@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour, IHitable
     public float viewRange = 20f;
     public float attackRange = 7f;
 
+    public GameObject HealthDrop;
+
     public GameObject HurtBox;
 
     protected bool dead = false;
@@ -153,6 +155,11 @@ public class Enemy : MonoBehaviour, IHitable
         GetComponentInChildren<AudioSource>().Play();
         StopAllCoroutines();
         OnDeath?.Invoke();
+
+        if(Random.Range(0, 11) > 8)
+        {
+            Instantiate(HealthDrop, transform.position, Quaternion.identity);
+        }
 
 
         agent.isStopped = true;

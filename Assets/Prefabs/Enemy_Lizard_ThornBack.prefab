@@ -106,6 +106,7 @@ MonoBehaviour:
   HP: 2
   viewRange: 70
   attackRange: 10
+  HealthDrop: {fileID: 4748863245226005061, guid: 97fac43d40ce1ca4eb5d970745b781d0, type: 3}
   HurtBox: {fileID: 0}
   CurrentStateName: 
   lineOfSightMask:

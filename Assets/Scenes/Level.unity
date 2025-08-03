@@ -1192,10 +1192,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Kangaroo
       objectReference: {fileID: 0}
-    - target: {fileID: 7737325142429782911, guid: 23f79f9a64eaa28418c34075ebdcc8ee, type: 3}
-      propertyPath: catchBoomerang
-      value: 
-      objectReference: {fileID: 8300000, guid: 391f57edda9d9af43874ad083e6f915a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
