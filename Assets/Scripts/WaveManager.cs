@@ -39,6 +39,7 @@ public class WaveManager : MonoBehaviour
 
             yield return new WaitForSeconds(waveDelay);
             OnFinishWave();
+            GetComponentInChildren<AudioSource>().Play();
         }
     }
 

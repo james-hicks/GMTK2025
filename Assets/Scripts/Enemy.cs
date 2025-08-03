@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour, IHitable
     protected Coroutine currentState;
     public string CurrentStateName;
 
+    public AudioClip attackSound;
+
     public System.Action OnDeath;
 
     protected virtual void Awake()
@@ -89,6 +91,11 @@ public class Enemy : MonoBehaviour, IHitable
         animator.SetBool("Spin", true);
         animator.SetBool("Move", false);
 
+        if(HurtBox != null)
+        {
+            GetComponentInChildren<AudioSource>().PlayOneShot(attackSound, 0.5f);
+        }
+
         while (true)
         {
             agent.isStopped = false;
@@ -143,6 +150,7 @@ public class Enemy : MonoBehaviour, IHitable
     protected virtual void Die()
     {
         gameObject.layer = LayerMask.NameToLayer("EnemyImmune");
+        GetComponentInChildren<AudioSource>().Play();
         StopAllCoroutines();
         OnDeath?.Invoke();
 
@@ -150,6 +158,8 @@ public class Enemy : MonoBehaviour, IHitable
         agent.isStopped = true;
         dead = true;
         animator.SetBool("Death", true);
+
+
         Destroy(gameObject, 5f);
     }
 

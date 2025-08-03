@@ -38,6 +38,11 @@ public class PlayerController : MonoBehaviour
     public float BoomerangBaseScale = 1.5f;
 
 
+    [Header("Audio Clips")]
+    [SerializeField] private AudioClip playerHurt;
+    [SerializeField] private AudioClip throwBoomerang;
+    [SerializeField] private AudioClip catchBoomerang;
+
     private float cooldownTimer;
     private float originalY;
     private Rigidbody rb;
@@ -83,6 +88,7 @@ public class PlayerController : MonoBehaviour
 
                 // Animation trigger throw
                 animator.SetTrigger("Throw");
+                GetComponentInChildren<AudioSource>().PlayOneShot(throwBoomerang, 0.5f);
 
                 // Spawn boomerang
                 var boomerang = Instantiate(boomerangPrefab, throwPoint.position, throwPoint.rotation);
@@ -276,6 +282,7 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
         if(dmgCD <= 0 && !isDead)
         {
             currentHealth -= damage;
+            GetComponentInChildren<AudioSource>().PlayOneShot(playerHurt, 0.3f);
 
             GameObject dmg = Instantiate(DamageEffect, transform.position + Vector3.up, Quaternion.identity);
             Destroy(dmg, 3f);
@@ -301,6 +308,7 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
     public void PlayCatchAnimation()
     {
         if (isCatching) return; // already catching
+        GetComponentInChildren<AudioSource>().PlayOneShot(catchBoomerang, 0.5f);
         GameObject catchFX = Instantiate(CatchEffect, transform.position + Vector3.up, Quaternion.identity);
         Destroy(catchFX, 3f);
         animator.SetTrigger("Catch");

@@ -172,6 +172,8 @@ public class BoomerangSimpleArc : MonoBehaviour
         {
             hit.GetHit(Damage);
 
+            GetComponentInChildren<AudioSource>().Play();
+
             GameObject fx = Instantiate(HitFX, other.transform.position, Quaternion.identity);
             Destroy(fx, 2f);
         }
