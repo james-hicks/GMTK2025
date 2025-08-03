@@ -156,7 +156,7 @@ public class Enemy : MonoBehaviour, IHitable
         StopAllCoroutines();
         OnDeath?.Invoke();
 
-        if(Random.Range(0, 11) > 8)
+        if(Random.Range(0, 11) > 9)
         {
             Instantiate(HealthDrop, transform.position, Quaternion.identity);
         }

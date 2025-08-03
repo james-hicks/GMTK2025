@@ -242,6 +242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Art: {fileID: 1256234679000671083}
+  pickedUp: 0
+  clip: {fileID: 8300000, guid: 4ef3a535e77996147a8be63632814da9, type: 3}
 --- !u!1001 &2767652285414128501
 PrefabInstance:
   m_ObjectHideFlags: 0
