@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UpgradeName: MOVE SPEED
   UpgradeIcon: {fileID: 21300000, guid: c4ac22a32c8e939499d996faec3ca200, type: 3}
-  UpgradeDescription: INCREASES PLAYER MOVEMENT SPEED.
+  UpgradeDescription: INCREASES PLAYER MOVEMENT SPEED (+0.2)
   UpgradeIndex: 2

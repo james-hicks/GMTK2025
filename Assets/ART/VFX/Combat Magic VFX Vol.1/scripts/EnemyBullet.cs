@@ -8,7 +8,8 @@ public class EnemyBullet : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(new Vector3(0.0f, 0.0f, 0.05f));
+        float bulletSpeed = 20f; // units per second
+        transform.Translate(Vector3.forward * bulletSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)

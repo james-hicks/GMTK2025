@@ -351,7 +351,7 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
                 Damage += 1;
                 break;
             case 1:
-                boomerangCooldown -= 0.1f;
+                boomerangCooldown -= 0.2f;
                 break;
             case 2:
                 moveSpeed += 0.2f;
@@ -366,10 +366,10 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
 
                 break;
             case 4:
-                BoomerangBaseScale += 0.1f;
+                BoomerangBaseScale += 0.2f;
                 break;
             case 5:
-                dashCooldown -= 0.1f;
+                dashCooldown -= 0.2f;
                 break;
         }
     }
