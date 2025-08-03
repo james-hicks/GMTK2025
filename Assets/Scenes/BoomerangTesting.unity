@@ -1116,37 +1116,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3606066432992346069, guid: d5351fbbae1ba04428e6f21c06724c44, type: 3}
-      propertyPath: waveDelay
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3606066432992346069, guid: d5351fbbae1ba04428e6f21c06724c44, type: 3}
-      propertyPath: spawnDelay
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3606066432992346069, guid: d5351fbbae1ba04428e6f21c06724c44, type: 3}
-      propertyPath: enemiesPerWave
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3606066432992346069, guid: d5351fbbae1ba04428e6f21c06724c44, type: 3}
       propertyPath: upgradeManager
       value: 
       objectReference: {fileID: 4208199263226106627}
-    - target: {fileID: 3606066432992346069, guid: d5351fbbae1ba04428e6f21c06724c44, type: 3}
-      propertyPath: enemyPrefabs.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3606066432992346069, guid: d5351fbbae1ba04428e6f21c06724c44, type: 3}
-      propertyPath: 'enemyPrefabs.Array.data[0]'
-      value: 
-      objectReference: {fileID: 3302467335532925096, guid: 3db19d73f2885dd4ba612d531c0d53b6, type: 3}
-    - target: {fileID: 3606066432992346069, guid: d5351fbbae1ba04428e6f21c06724c44, type: 3}
-      propertyPath: 'enemyPrefabs.Array.data[1]'
-      value: 
-      objectReference: {fileID: 7645989351850367866, guid: 897b4463963219b4e8db6820aba07999, type: 3}
-    - target: {fileID: 3606066432992346069, guid: d5351fbbae1ba04428e6f21c06724c44, type: 3}
-      propertyPath: 'enemyPrefabs.Array.data[2]'
-      value: 
-      objectReference: {fileID: 9134918428682711678, guid: 535ac517213b6ea4b881d075f4032a98, type: 3}
     - target: {fileID: 6066822214247840519, guid: d5351fbbae1ba04428e6f21c06724c44, type: 3}
       propertyPath: m_Name
       value: WaveManager
