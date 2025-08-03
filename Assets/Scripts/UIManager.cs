@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private Image boomerangCooldown;
     [SerializeField] private Image dashCooldown;
+    [SerializeField] private GameObject gameplayUI;
+    [SerializeField] private GameObject deathPanelRoot;
     [SerializeField] private Animator deathPanelAnimator;
     [SerializeField] private TextMeshProUGUI roundNumber;
 
@@ -28,8 +30,14 @@ public class UIManager : MonoBehaviour
 
     public void TriggerDeathAnimation()
     {
-        deathPanelAnimator.SetTrigger("FadeIn");
+        if (gameplayUI != null)
+            gameplayUI.SetActive(false);
 
+        if (deathPanelRoot != null)
+            deathPanelRoot.SetActive(true);
+
+        if (deathPanelAnimator != null)
+            deathPanelAnimator.SetTrigger("FadeIn");
     }
 
     public void UpdateBoomerangCooldown(float current, float max)

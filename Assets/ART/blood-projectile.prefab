@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1774251985513104733}
   - component: {fileID: 2420296516232512751}
+  - component: {fileID: 2593423793845532858}
   - component: {fileID: 3577785108139733829}
   - component: {fileID: 3437259551591708604}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: blood-projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,8 +55,35 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.35
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &2593423793845532858
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034883858249073581}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &3577785108139733829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,7 +121,7 @@ GameObject:
   - component: {fileID: 301777360122227400}
   - component: {fileID: 974014794572480481}
   - component: {fileID: 668214893740196717}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: black-fire-random
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4939,7 +4967,7 @@ GameObject:
   - component: {fileID: 517559893193620895}
   - component: {fileID: 7144441725675964706}
   - component: {fileID: 8923527041289355760}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: glow-long
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9785,7 +9813,7 @@ GameObject:
   - component: {fileID: 8545434866103457768}
   - component: {fileID: 6658869367466309690}
   - component: {fileID: 1767930774237207938}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: black-back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14630,7 +14658,7 @@ GameObject:
   - component: {fileID: 1341841001604584554}
   - component: {fileID: 1785146466724202200}
   - component: {fileID: 3944385098059155104}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: black-fire-anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}

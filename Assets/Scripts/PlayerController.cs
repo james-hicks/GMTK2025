@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip playerHurt;
     [SerializeField] private AudioClip throwBoomerang;
     [SerializeField] private AudioClip catchBoomerang;
+    [SerializeField] private AudioClip dashSound;
 
     private float cooldownTimer;
     private float originalY;
@@ -244,7 +245,7 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
         transform.rotation = dashRotation;
 
         animator.SetTrigger("Dash");
-
+        GetComponentInChildren<AudioSource>().PlayOneShot(dashSound, 0.2f);
         float elapsed = 0f;
         while (elapsed < dashDuration)
         {
@@ -308,7 +309,7 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
     public void PlayCatchAnimation()
     {
         if (isCatching) return; // already catching
-        GetComponentInChildren<AudioSource>().PlayOneShot(catchBoomerang, 0.5f);
+        GetComponentInChildren<AudioSource>().PlayOneShot(catchBoomerang, 0.2f);
         GameObject catchFX = Instantiate(CatchEffect, transform.position + Vector3.up, Quaternion.identity);
         Destroy(catchFX, 3f);
         animator.SetTrigger("Catch");

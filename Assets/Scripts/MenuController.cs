@@ -8,6 +8,11 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void Menu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void Quit()
     {
         Debug.Log("Quitting Game...");

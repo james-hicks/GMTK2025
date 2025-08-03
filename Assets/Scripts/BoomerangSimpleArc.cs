@@ -6,6 +6,7 @@ public class BoomerangSimpleArc : MonoBehaviour
     public Transform player;
     public PlayerController playerController;
     [SerializeField] public GameObject HitFX;
+    [SerializeField] private GameObject DropFX;
 
     [Header("Flight Settings")]
     public float forwardDistance = 10f;
@@ -81,7 +82,7 @@ public class BoomerangSimpleArc : MonoBehaviour
             Vector3 newPos = QuadraticBezier(apexPos, returnControl, player.position, t);
             newPos.y = player.position.y + 1f;
 
-            // ✅ Calculate direction BEFORE snapping to final position
+            // Calculate direction BEFORE snapping to final position
             lastDirection = (newPos - transform.position).normalized;
 
             transform.position = newPos;
@@ -93,7 +94,7 @@ public class BoomerangSimpleArc : MonoBehaviour
                 return;
             }
 
-            // ✅ Ensure we still have direction at the end of the curve
+            // Ensure we still have direction at the end of the curve
             if (t >= 1f)
             {
                 if (lastDirection.sqrMagnitude < 0.01f)
@@ -168,14 +169,32 @@ public class BoomerangSimpleArc : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent(out IHitable hit))
+        if (other.TryGetComponent(out IHitable hit))
         {
             hit.GetHit(Damage);
-
-            GetComponentInChildren<AudioSource>().Play();
+            GetComponentInChildren<AudioSource>()?.Play();
 
             GameObject fx = Instantiate(HitFX, other.transform.position, Quaternion.identity);
             Destroy(fx, 2f);
         }
+        else if (other.gameObject.CompareTag("Environment"))
+        {
+            DropBoomerang();
+        }
+    }
+
+    private void DropBoomerang()
+    {
+        missed = true;
+        caught = false;
+        graceTimer = 0f;
+
+        if (DropFX != null)
+        {
+            Instantiate(DropFX, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
+        Debug.Log("Boomerang hit environment and dropped.");
     }
 }

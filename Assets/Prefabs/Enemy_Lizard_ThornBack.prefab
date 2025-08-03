@@ -108,6 +108,9 @@ MonoBehaviour:
   attackRange: 10
   HurtBox: {fileID: 0}
   CurrentStateName: 
+  lineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 7991
 --- !u!195 &2461893122120861818
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1859,7 +1862,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1034883858249073581, guid: 7df1b3d7d280ef04da43f535c38aae04, type: 3}
   firePoint: {fileID: 7906833693947202703}
-  shootSound: {fileID: 8300000, guid: 53500f8bf2a973d42937a4ac5f8bbe7e, type: 3}
+  shootSound: {fileID: 8300000, guid: 1780df1686ddf674893b785a317a5e32, type: 3}
 --- !u!1001 &3610435637398653104
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -99,6 +99,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerController: {fileID: 0}
   HitFX: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
+  DropFX: {fileID: 5411500171365924788, guid: e54280a61a33cd94bb1831bad8130e8c, type: 3}
   forwardDistance: 10
   flightDuration: 1
   returnDuration: 1

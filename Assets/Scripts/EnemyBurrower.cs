@@ -20,13 +20,11 @@ public class EnemyBurrower : Enemy
     public void EnableBurrowImmunity()
     {
         gameObject.layer = LayerMask.NameToLayer("EnemyImmune");
-        GetComponent<AudioSource>().Play();
     }
 
     public void DisableBurrowImmunity()
     {
         gameObject.layer = LayerMask.NameToLayer("Enemy");
-        GetComponent<AudioSource>().Stop();
     }
 
     public override IEnumerator ChaseState()
@@ -61,7 +59,6 @@ public class EnemyBurrower : Enemy
         isBurrowed = false;
 
         yield return new WaitForSeconds(0.4f);
-        GetComponent<AudioSource>().PlayOneShot(attackSound, 0.3f);
         yield return new WaitForSeconds(1.4f);
 
         SwitchState(BurrowRetreatState());

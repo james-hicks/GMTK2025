@@ -22,8 +22,6 @@ public class Enemy : MonoBehaviour, IHitable
     protected Coroutine currentState;
     public string CurrentStateName;
 
-    public AudioClip attackSound;
-
     public System.Action OnDeath;
 
     protected virtual void Awake()
@@ -73,12 +71,20 @@ public class Enemy : MonoBehaviour, IHitable
             agent.speed = 7f;
             agent.SetDestination(player.position);
 
-            if (Vector3.Distance(transform.position, player.position) < attackRange)
-            {
-                SwitchState(AttackState());
-                yield break;
-            }
+            float distance = Vector3.Distance(transform.position, player.position);
 
+            if (distance < attackRange)
+            {
+                // Add delay to prevent immediate flip back and forth
+                yield return new WaitForSeconds(0.25f);
+
+                // Recheck distance before switching
+                if (Vector3.Distance(transform.position, player.position) < attackRange)
+                {
+                    SwitchState(AttackState());
+                    yield break;
+                }
+            }
 
             yield return null;
         }
@@ -90,11 +96,6 @@ public class Enemy : MonoBehaviour, IHitable
         agent.isStopped = true;
         animator.SetBool("Spin", true);
         animator.SetBool("Move", false);
-
-        if(HurtBox != null)
-        {
-            GetComponent<AudioSource>().Play();
-        }
 
         while (true)
         {
@@ -120,7 +121,6 @@ public class Enemy : MonoBehaviour, IHitable
         animator.SetBool("Spin", false);
         animator.SetBool("Move", false);
 
-        GetComponent<AudioSource>().Stop();
         while (hitCooldown > 0)
         {
             hitCooldown -= Time.deltaTime;

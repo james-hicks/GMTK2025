@@ -7,6 +7,8 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private UpgradeManager upgradeManager;
+    [SerializeField] private GameObject countDownPanel;
+    [SerializeField] private GameObject wavePanelObject;
     [SerializeField] private Animator waveClearedAnimator;
     [SerializeField] private Animator waveCountAnimator;
     [SerializeField] private TMP_Text countdownText;
@@ -29,7 +31,9 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator RunWaves()
     {
+        countdownText.text = $"Next wave in: 3";
         currentWave++;
+        countDownPanel.SetActive(true);
         waveCountAnimator.SetTrigger("FadeIn");
         yield return new WaitForSeconds(1f);
         float countdown = Mathf.Ceil(waveDelay);
@@ -41,7 +45,9 @@ public class WaveManager : MonoBehaviour
             countdown--;
         }
         waveCountAnimator.SetTrigger("FadeOut");
-        countdownText.text = "";
+        yield return new WaitForSeconds(1f);
+        countDownPanel.SetActive(false);
+        wavePanelObject.SetActive(false);
 
         Debug.Log($"Wave {currentWave} starting!");
         UIManager.instance.UpdateRoundNumber(currentWave);
@@ -101,6 +107,10 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator HandlePostWaveSequence()
     {
+        if (wavePanelObject != null)
+        {
+            wavePanelObject.SetActive(true);
+        }
         waveClearedAnimator.SetTrigger("FadeIn");
 
         yield return new WaitForSeconds(2.5f);

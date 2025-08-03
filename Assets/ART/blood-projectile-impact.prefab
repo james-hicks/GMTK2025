@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5586074960160428511}
   - component: {fileID: 7893474500733143622}
   - component: {fileID: 5468724211927916792}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: rings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4884,7 +4884,7 @@ GameObject:
   - component: {fileID: 630612135074009538}
   - component: {fileID: 476955706390705346}
   - component: {fileID: 1611143309426708549}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: sparks-black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9751,7 +9751,7 @@ GameObject:
   - component: {fileID: 2851763515158529700}
   - component: {fileID: 4151797390741675710}
   - component: {fileID: 8276602016266754551}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14617,7 +14617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2645826442287889327}
   - component: {fileID: 3028482609648771649}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: blood-projectile-impact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14664,7 +14664,7 @@ GameObject:
   - component: {fileID: 8821884971784201428}
   - component: {fileID: 8905889150097336554}
   - component: {fileID: 3997311763912963233}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: sparks-blood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19531,7 +19531,7 @@ GameObject:
   - component: {fileID: 9005056267058844677}
   - component: {fileID: 7878892722772549917}
   - component: {fileID: 5986552402086389098}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24410,7 +24410,7 @@ GameObject:
   - component: {fileID: 8150860346799490996}
   - component: {fileID: 3879250234638954743}
   - component: {fileID: 1901297115034454008}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: blood-mist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29277,7 +29277,7 @@ GameObject:
   - component: {fileID: 8306850369404296723}
   - component: {fileID: 8009625615752859980}
   - component: {fileID: 5168101145478847678}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: rings-blood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34144,7 +34144,7 @@ GameObject:
   - component: {fileID: 7200461824157036867}
   - component: {fileID: 8342764670103805973}
   - component: {fileID: 8376651426472907258}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: rings-plasma
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39011,7 +39011,7 @@ GameObject:
   - component: {fileID: 6211489409137786381}
   - component: {fileID: 5170306554199763894}
   - component: {fileID: 3291689124513193023}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: flames
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43878,7 +43878,7 @@ GameObject:
   - component: {fileID: 5267434010662442150}
   - component: {fileID: 6625967677952767758}
   - component: {fileID: 5584298993755433716}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: sparks-long
   m_TagString: Untagged
   m_Icon: {fileID: 0}
