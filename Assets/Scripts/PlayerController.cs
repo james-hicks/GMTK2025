@@ -374,6 +374,22 @@ UIManager.instance.UpdateDashCooldown(dashCooldownTimer, dashCooldown);
         }
     }
 
+    public void Heal(int amount)
+    {
+        if (currentHealth + amount > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else
+        {
+
+            currentHealth += amount;
+        }
+
+        UIManager.instance.UpdateHealth(currentHealth);
+    }
+
+
 
 
 }

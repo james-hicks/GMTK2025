@@ -152,9 +152,9 @@ MonoBehaviour:
   HP: 3
   viewRange: 70
   attackRange: 7
+  HealthDrop: {fileID: 4748863245226005061, guid: 97fac43d40ce1ca4eb5d970745b781d0, type: 3}
   HurtBox: {fileID: 8526494225392637068}
   CurrentStateName: 
-  attackSound: {fileID: 8300000, guid: 58a60907d8ccfb5458d9778b96c430c2, type: 3}
 --- !u!136 &3845287899261864054
 CapsuleCollider:
   m_ObjectHideFlags: 0

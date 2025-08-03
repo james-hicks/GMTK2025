@@ -1507,7 +1507,7 @@ MonoBehaviour:
   baseMoveSpeed: 5
   boomerangCooldown: 4
   Damage: 1
-  BoomerangBaseScale: 1.5
+  BoomerangBaseScale: 1.3
   playerHurt: {fileID: 8300000, guid: 212cdccac2d397844a6f33ab12c0e642, type: 3}
   throwBoomerang: {fileID: 8300000, guid: 5a771528769990b449cc5c81a5047906, type: 3}
   catchBoomerang: {fileID: 8300000, guid: 391f57edda9d9af43874ad083e6f915a, type: 3}
