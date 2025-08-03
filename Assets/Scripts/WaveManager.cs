@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.Examples;
+using TMPro;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private UpgradeManager upgradeManager;
+    [SerializeField] private Animator waveClearedAnimator;
+    [SerializeField] private Animator waveCountAnimator;
+    [SerializeField] private TMP_Text countdownText;
+    [SerializeField] private GameObject spawnFXPrefab;
 
     [Header("Wave Settings")]
     public GameObject[] enemyPrefabs;
     public Transform[] spawnPoints;
     public int enemiesPerWave = 3;
-    public float spawnDelay = 0.5f;
-    public float waveDelay = 3f;
+    public float spawnDelay = 1f;
+    public float waveDelay = 5f;
 
     private int currentWave = 0;
     private List<GameObject> activeEnemies = new List<GameObject>();
@@ -24,23 +29,28 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator RunWaves()
     {
-        while (true)
+        currentWave++;
+        waveCountAnimator.SetTrigger("FadeIn");
+        yield return new WaitForSeconds(1f);
+        float countdown = Mathf.Ceil(waveDelay);
+
+        while (countdown > 0)
         {
-            currentWave++;
-            Debug.Log($"Wave {currentWave} starting!");
-            UIManager.instance.UpdateRoundNumber(currentWave);
-
-            yield return StartCoroutine(SpawnWave(currentWave));
-
-            yield return new WaitUntil(() => activeEnemies.Count == 0);
-
-            Debug.Log($"Finished Wave {currentWave}");
-
-
-            yield return new WaitForSeconds(waveDelay);
-            OnFinishWave();
-            GetComponentInChildren<AudioSource>().Play();
+            countdownText.text = $"Next wave in: {countdown}";
+            yield return new WaitForSecondsRealtime(1f);
+            countdown--;
         }
+        waveCountAnimator.SetTrigger("FadeOut");
+        countdownText.text = "";
+
+        Debug.Log($"Wave {currentWave} starting!");
+        UIManager.instance.UpdateRoundNumber(currentWave);
+
+        yield return StartCoroutine(SpawnWave(currentWave));
+        yield return new WaitUntil(() => activeEnemies.Count == 0);
+
+        Debug.Log($"Finished Wave {currentWave}");
+        OnFinishWave();
     }
 
     private IEnumerator SpawnWave(int waveNumber)
@@ -65,6 +75,11 @@ public class WaveManager : MonoBehaviour
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
         activeEnemies.Add(enemy);
 
+        if (spawnFXPrefab != null)
+        {
+            Instantiate(spawnFXPrefab, spawnPoint.position, Quaternion.identity);
+        }
+
         EnemyManager.Instance.RegisterEnemy(enemy.transform);
 
         Enemy enemyScript = enemy.GetComponent<Enemy>();
@@ -81,6 +96,20 @@ public class WaveManager : MonoBehaviour
 
     public void OnFinishWave()
     {
+        StartCoroutine(HandlePostWaveSequence());
+    }
+
+    private IEnumerator HandlePostWaveSequence()
+    {
+        waveClearedAnimator.SetTrigger("FadeIn");
+
+        yield return new WaitForSeconds(2.5f);
+
         upgradeManager.ShowUpgrades();
+
+        yield return new WaitUntil(() => upgradeManager.IsUpgradeFinished);
+        yield return new WaitForSeconds(1f);
+
+        StartCoroutine(RunWaves());
     }
 }

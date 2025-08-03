@@ -1,20 +1,28 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
 {
+    public bool IsUpgradeFinished { get; private set; } = false;
     public List<Upgrade> upgrades = new List<Upgrade>();
     public List<Upgrade> chosenUpgrades = new List<Upgrade>();
 
     public UpgradeOption[] options;
     private System.Random rng = new System.Random();
 
+    [SerializeField] private Animator upgradeAnimator;
+
     public void ShowUpgrades()
     {
-        Time.timeScale = 0f;
-        gameObject.SetActive(true);
+        IsUpgradeFinished = false;
         ResetUpgrades();
         SelectUpgrades();
+
+        gameObject.SetActive(true);
+        upgradeAnimator.SetTrigger("FadeIn");
+
+        StartCoroutine(FreezeTimeAfterFade());
     }
 
     public void SelectUpgrades()
@@ -54,6 +62,25 @@ public class UpgradeManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         FindFirstObjectByType<PlayerController>().ApplyUpgrades(up.UpgradeIndex);
+
+        //Trigger fade-out animation
+        upgradeAnimator.SetTrigger("FadeOut");
+
+        //Delay hiding the UI until after fade
+        StartCoroutine(DelayedHide(2.0f));
+
+        IsUpgradeFinished = true;
+    }
+
+    private IEnumerator DelayedHide(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
         gameObject.SetActive(false);
+    }
+
+    private IEnumerator FreezeTimeAfterFade()
+    {
+        yield return new WaitForSeconds(2f);
+        Time.timeScale = 0f;
     }
 }
